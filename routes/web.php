@@ -29,4 +29,5 @@ Route::group(['prefix' => 'category'], function () {
 
 Route::group(['prefix' => 'locations'], function () {
     Route::get('/all', 'LocationController@getLocations');
+    Route::get('/markers', 'LocationController@markers');
 });

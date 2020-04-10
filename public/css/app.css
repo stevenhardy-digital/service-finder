@@ -10920,3 +10920,8 @@ a.text-dark:focus {
   margin-left: 10px;
 }
 
+.services-list .location .details h5,
+.services-list .location .details p {
+  margin: 0;
+}
+

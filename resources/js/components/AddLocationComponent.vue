@@ -46,6 +46,10 @@
                         <label>Logo or Image</label>
                         <input type="file" class="form-control" v-on:change="onImageChange">
                     </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" v-model="description"></textarea>
+                    </div>
                     <button class="btn btn-success">Submit</button>
                 </form>
                 <div class="success alert-success" v-if="success">
@@ -68,17 +72,17 @@
                 category: '',
                 logo: '',
                 success: '',
-                apiKey: process.env.MIX_GOOGLE_API,
                 google: '',
                 latLong: {
                     latitude: '',
                     longitude: ''
                 },
+                description: ''
             }
         },
         async mounted() {
             const googleMapApi = await GoogleMapsApiLoader({
-            apiKey: this.apiKey
+            apiKey: process.env.MIX_GOOGLE_API
             })
             this.google = googleMapApi
 
@@ -106,6 +110,7 @@
                 formData.append('logo', this.logo);
                 formData.append('latitude', this.latLong.latitude);
                 formData.append('longitude', this.latLong.longitude);
+                formData.append('description', this.description);
  
                 axios.post('/add-location', formData, config)
                 .then(function (response) {

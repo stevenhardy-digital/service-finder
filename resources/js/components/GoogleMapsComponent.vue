@@ -16,7 +16,6 @@
     export default {
         props: {
             mapConfig: Object,
-            apiKey: String,
         },
         data() {
             return {
@@ -24,9 +23,9 @@
                 map: null
             }
         },
-        async mounted() {
+        async created() {
             const googleMapApi = await GoogleMapsApiLoader({
-            apiKey: this.apiKey
+            apiKey: process.env.MIX_GOOGLE_API
             })
             this.google = googleMapApi
             this.initializeMap()

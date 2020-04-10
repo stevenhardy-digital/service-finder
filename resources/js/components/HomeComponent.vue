@@ -1,21 +1,21 @@
 <template>
     <div class="main-container">
         <div class="row no-gutters">
-            <div class="col-sm-3 services-list">
-               <div class="location" v-for="location in locations">
+            <div class="col-sm-4 services-list">
+               <div class="location" v-for="location in locations" :key="location.id">
                    <div class="logo">
                        <img :src="location.logo" :alt="location.name" />
                    </div>
                    <div class="details">
                         <h5>{{location.name}}</h5>
                         <p>{{location.location}}</p>
+                        <p>{{location.description}}</p>
                    </div>
                </div>
             </div>
-            <div class="col-sm-9 map">
+            <div class="col-sm-8 map">
                 <GoogleMapLoader
                     :mapConfig="mapConfig"
-                    :apiKey="this.apiKey"
                 >
                     <template slot-scope="{ google, map }">
   	                    <GoogleMapMarker
@@ -55,16 +55,40 @@
         data() {
             return {
                 locations: [],
-                apiKey: process.env.MIX_GOOGLE_API,
                 markers: [
-                    { id: 'a', position: { lat: 3, lng: 101 } },
-                    { id: 'b', position: { lat: 5, lng: 99 } },
-                    { id: 'c', position: { lat: 6, lng: 97 } },
+                    { id: '1', position: { lat: 51.880087, lng: 0.550927 } }
                 ],
-                lines: [
-                    { id: '1', path: [{ lat: 3, lng: 101 }, { lat: 5, lng: 99 }] },
-                    { id: '2', path: [{ lat: 5, lng: 99 }, { lat: 6, lng: 97 }] }
-                ],
+                lines: []
+            }
+        },
+        
+        async created () {
+            await axios
+                .get('http://service.test/locations/all')
+                .then(response => (
+                    this.locations = response.data.locations
+                    
+                    ));
+
+
+            this.getMarkers();
+
+        },
+
+        methods: {
+            getMarkers() {
+                console.log('getting')
+                const result = this.locations.map((item) => {
+                    return {
+                        id: item.id,
+                        position: {
+                            lat: Number(item.latitude),
+                            lng: Number(item.longitude)
+                        }
+                    };
+                });
+
+                this.markers = result;
             }
         },
 
@@ -76,14 +100,9 @@
                 }
             },
             mapCenter () {
-                return this.markers[1].position
+                return this.markers[0].position
             }
-        },
-         mounted () {
-            axios
-            .get('http://service.test/locations/all')
-            .then(response => (this.locations = response.data.locations))
-        },
+        }
     }
 </script>
 

@@ -1988,6 +1988,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1999,12 +2003,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       category: '',
       logo: '',
       success: '',
-      apiKey: "AIzaSyDVzSxy0oYE0s0ra-zYMGU396QXx4HFeIg",
       google: '',
       latLong: {
         latitude: '',
         longitude: ''
-      }
+      },
+      description: ''
     };
   },
   mounted: function mounted() {
@@ -2018,7 +2022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1___default()({
-                apiKey: _this.apiKey
+                apiKey: "AIzaSyDVzSxy0oYE0s0ra-zYMGU396QXx4HFeIg"
               });
 
             case 2:
@@ -2056,6 +2060,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.append('logo', this.logo);
       formData.append('latitude', this.latLong.latitude);
       formData.append('longitude', this.latLong.longitude);
+      formData.append('description', this.description);
       axios.post('/add-location', formData, config).then(function (response) {
         currentObj.success = response.data.success;
       })["catch"](function (error) {
@@ -2239,8 +2244,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    mapConfig: Object,
-    apiKey: String
+    mapConfig: Object
   },
   data: function data() {
     return {
@@ -2248,7 +2252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       map: null
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2259,7 +2263,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1___default()({
-                apiKey: _this.apiKey
+                apiKey: "AIzaSyDVzSxy0oYE0s0ra-zYMGU396QXx4HFeIg"
               });
 
             case 2:
@@ -2295,15 +2299,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _GoogleMapsComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GoogleMapsComponent */ "./resources/js/components/GoogleMapsComponent.vue");
-/* harmony import */ var _GoogleMapMarker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GoogleMapMarker */ "./resources/js/components/GoogleMapMarker.vue");
-/* harmony import */ var _GoogleMapLine__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleMapLine */ "./resources/js/components/GoogleMapLine.vue");
-/* harmony import */ var _constants_mapSettings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/mapSettings */ "./resources/js/constants/mapSettings.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _GoogleMapsComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GoogleMapsComponent */ "./resources/js/components/GoogleMapsComponent.vue");
+/* harmony import */ var _GoogleMapMarker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GoogleMapMarker */ "./resources/js/components/GoogleMapMarker.vue");
+/* harmony import */ var _GoogleMapLine__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GoogleMapLine */ "./resources/js/components/GoogleMapLine.vue");
+/* harmony import */ var _constants_mapSettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constants/mapSettings */ "./resources/js/constants/mapSettings.js");
+
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -2352,70 +2364,71 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    GoogleMapLoader: _GoogleMapsComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    GoogleMapMarker: _GoogleMapMarker__WEBPACK_IMPORTED_MODULE_1__["default"],
-    GoogleMapLine: _GoogleMapLine__WEBPACK_IMPORTED_MODULE_2__["default"]
+    GoogleMapLoader: _GoogleMapsComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    GoogleMapMarker: _GoogleMapMarker__WEBPACK_IMPORTED_MODULE_2__["default"],
+    GoogleMapLine: _GoogleMapLine__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       locations: [],
-      apiKey: "AIzaSyDVzSxy0oYE0s0ra-zYMGU396QXx4HFeIg",
       markers: [{
-        id: 'a',
+        id: '1',
         position: {
-          lat: 3,
-          lng: 101
-        }
-      }, {
-        id: 'b',
-        position: {
-          lat: 5,
-          lng: 99
-        }
-      }, {
-        id: 'c',
-        position: {
-          lat: 6,
-          lng: 97
+          lat: 51.880087,
+          lng: 0.550927
         }
       }],
-      lines: [{
-        id: '1',
-        path: [{
-          lat: 3,
-          lng: 101
-        }, {
-          lat: 5,
-          lng: 99
-        }]
-      }, {
-        id: '2',
-        path: [{
-          lat: 5,
-          lng: 99
-        }, {
-          lat: 6,
-          lng: 97
-        }]
-      }]
+      lines: []
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.get('http://service.test/locations/all').then(function (response) {
+                return _this.locations = response.data.locations;
+              });
+
+            case 2:
+              _this.getMarkers();
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  methods: {
+    getMarkers: function getMarkers() {
+      console.log('getting');
+      var result = this.locations.map(function (item) {
+        return {
+          id: item.id,
+          position: {
+            lat: Number(item.latitude),
+            lng: Number(item.longitude)
+          }
+        };
+      });
+      this.markers = result;
+    }
   },
   computed: {
     mapConfig: function mapConfig() {
-      return _objectSpread({}, _constants_mapSettings__WEBPACK_IMPORTED_MODULE_3__["mapSettings"], {
+      return _objectSpread({}, _constants_mapSettings__WEBPACK_IMPORTED_MODULE_4__["mapSettings"], {
         center: this.mapCenter
       });
     },
     mapCenter: function mapCenter() {
-      return this.markers[1].position;
+      return this.markers[0].position;
     }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get('http://service.test/locations/all').then(function (response) {
-      return _this.locations = response.data.locations;
-    });
   }
 });
 
@@ -40973,6 +40986,31 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Description")]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.description,
+                    expression: "description"
+                  }
+                ],
+                staticClass: "form-control",
+                domProps: { value: _vm.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.description = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c("button", { staticClass: "btn btn-success" }, [_vm._v("Submit")])
           ]
         ),
@@ -41143,9 +41181,9 @@ var render = function() {
     _c("div", { staticClass: "row no-gutters" }, [
       _c(
         "div",
-        { staticClass: "col-sm-3 services-list" },
+        { staticClass: "col-sm-4 services-list" },
         _vm._l(_vm.locations, function(location) {
-          return _c("div", { staticClass: "location" }, [
+          return _c("div", { key: location.id, staticClass: "location" }, [
             _c("div", { staticClass: "logo" }, [
               _c("img", { attrs: { src: location.logo, alt: location.name } })
             ]),
@@ -41153,7 +41191,9 @@ var render = function() {
             _c("div", { staticClass: "details" }, [
               _c("h5", [_vm._v(_vm._s(location.name))]),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(location.location))])
+              _c("p", [_vm._v(_vm._s(location.location))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(location.description))])
             ])
           ])
         }),
@@ -41162,10 +41202,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-sm-9 map" },
+        { staticClass: "col-sm-8 map" },
         [
           _c("GoogleMapLoader", {
-            attrs: { mapConfig: _vm.mapConfig, apiKey: this.apiKey },
+            attrs: { mapConfig: _vm.mapConfig },
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -54027,9 +54067,9 @@ var mapSettings = {
   zoomControlOptions: {
     style: "SMALL"
   },
-  zoom: 5,
+  zoom: 13,
   minZoom: 2,
-  maxZoom: 8,
+  maxZoom: 20,
   styles: [{
     featureType: "landscape",
     stylers: [{

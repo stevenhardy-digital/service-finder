@@ -43,7 +43,8 @@ class LocationController extends Controller
             'opening_hours' => json_encode($location['opening_hours']),
             'logo' => '/images/' . $imageName,
             'longitude' => $location['longitude'],
-            'latitude' => $location['latitude']
+            'latitude' => $location['latitude'],
+            'description' => $location['description']
         ]);
 
         $category = Category::firstOrCreate(['name' => $location['category']]);
