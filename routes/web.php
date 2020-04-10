@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/add-location', 'LocationController@index' )->name('add-location');
+Route::post('/add-location', 'LocationController@store' );
+
+Route::group(['prefix' => 'category'], function () {
+    Route::get('/all', 'CategoryController@getCategories');
+});
+
+Route::group(['prefix' => 'locations'], function () {
+    Route::get('/all', 'LocationController@getLocations');
+});
