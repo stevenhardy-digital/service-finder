@@ -10,7 +10,7 @@
                     </div>
                     <div class="form-group">
                         <label>Location:</label>
-                        <input type="text" class="form-control" v-model="location" />
+                        <input type="text" class="form-control" v-model="location" v-on:blur="getLongLat()"/>
                     </div>
                     <div class="form-group">
                         <label>Category</label>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+    import GoogleMapsApiLoader from 'google-maps-api-loader'
     export default {
         data() {
             return {
@@ -66,22 +67,27 @@
                 openingHours: [],
                 category: '',
                 logo: '',
-                success: ''
+                success: '',
+                apiKey: process.env.MIX_GOOGLE_API,
+                google: '',
+                latLong: {
+                    latitude: '',
+                    longitude: ''
+                },
             }
         },
+        async mounted() {
+            const googleMapApi = await GoogleMapsApiLoader({
+            apiKey: this.apiKey
+            })
+            this.google = googleMapApi
 
-        ready() {
-            this.getCategories();
-        },
-
-        mounted () {
             axios
             .get('http://service.test/category/all')
             .then(response => (this.categories = response.data))
         },
         methods: {
             onImageChange(e){
-                console.log(e.target.files[0]);
                 this.logo = e.target.files[0];
             },
             addLocation(e) {
@@ -98,6 +104,8 @@
                 formData.append('opening_hours', this.openingHours);
                 formData.append('category', this.category);
                 formData.append('logo', this.logo);
+                formData.append('latitude', this.latLong.latitude);
+                formData.append('longitude', this.latLong.longitude);
  
                 axios.post('/add-location', formData, config)
                 .then(function (response) {
@@ -106,6 +114,20 @@
                 .catch(function (error) {
                     currentObj.output = error;
                 });
+            },
+            getLongLat() {
+
+                let geocoder = new google.maps.Geocoder();
+                let latLong = this.latLong;
+                
+                geocoder.geocode({'address': this.location}, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        latLong.latitude = results[0].geometry.location.lat()
+                        latLong.longitude = results[0].geometry.location.lng()
+                    } else {
+                        console.log(status)
+                    }
+               });
             }
         }
 

@@ -1920,6 +1920,16 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! google-maps-api-loader */ "./node_modules/google-maps-api-loader/index.js");
+/* harmony import */ var google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -1978,6 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1987,22 +1998,46 @@ __webpack_require__.r(__webpack_exports__);
       openingHours: [],
       category: '',
       logo: '',
-      success: ''
+      success: '',
+      apiKey: "AIzaSyDVzSxy0oYE0s0ra-zYMGU396QXx4HFeIg",
+      google: '',
+      latLong: {
+        latitude: '',
+        longitude: ''
+      }
     };
-  },
-  ready: function ready() {
-    this.getCategories();
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('http://service.test/category/all').then(function (response) {
-      return _this.categories = response.data;
-    });
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var googleMapApi;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1___default()({
+                apiKey: _this.apiKey
+              });
+
+            case 2:
+              googleMapApi = _context.sent;
+              _this.google = googleMapApi;
+              axios.get('http://service.test/category/all').then(function (response) {
+                return _this.categories = response.data;
+              });
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   methods: {
     onImageChange: function onImageChange(e) {
-      console.log(e.target.files[0]);
       this.logo = e.target.files[0];
     },
     addLocation: function addLocation(e) {
@@ -2019,10 +2054,26 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('opening_hours', this.openingHours);
       formData.append('category', this.category);
       formData.append('logo', this.logo);
+      formData.append('latitude', this.latLong.latitude);
+      formData.append('longitude', this.latLong.longitude);
       axios.post('/add-location', formData, config).then(function (response) {
         currentObj.success = response.data.success;
       })["catch"](function (error) {
         currentObj.output = error;
+      });
+    },
+    getLongLat: function getLongLat() {
+      var geocoder = new google.maps.Geocoder();
+      var latLong = this.latLong;
+      geocoder.geocode({
+        'address': this.location
+      }, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          latLong.latitude = results[0].geometry.location.lat();
+          latLong.longitude = results[0].geometry.location.lng();
+        } else {
+          console.log(status);
+        }
       });
     }
   }
@@ -40509,6 +40560,9 @@ var render = function() {
                 attrs: { type: "text" },
                 domProps: { value: _vm.location },
                 on: {
+                  blur: function($event) {
+                    return _vm.getLongLat()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
