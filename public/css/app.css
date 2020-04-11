@@ -7205,7 +7205,7 @@ button.bg-dark:focus {
 }
 
 .d-flex,
-.services-list .location {
+.services-list a .location {
   display: flex !important;
 }
 
@@ -10904,24 +10904,40 @@ a.text-dark:focus {
   overflow-y: scroll;
 }
 
-.services-list .location {
+.services-list a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.services-list a:hover .location,
+.services-list a:focus .location {
+  background-color: rgba(236, 236, 236, 0.7);
+}
+
+.services-list a .location {
   border-bottom: 1px solid grey;
   padding: 10px 20px;
 }
 
-.services-list .location img {
+.services-list a .location img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 
-.services-list .location .details {
+.services-list a .location .details {
   width: 100%;
   margin-left: 10px;
 }
 
-.services-list .location .details h5,
-.services-list .location .details p {
+.services-list a .location .details h5,
+.services-list a .location .details p {
   margin: 0;
+}
+
+.services-list a .location .icon svg {
+  width: 35px;
+  height: 35px;
+  margin: 20px 0 20px 20px;
 }
 

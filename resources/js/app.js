@@ -10,6 +10,21 @@ window.Vue = require('vue');
 
 import * as VueGoogleMaps from "vue2-google-maps";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faShoppingCart, faUserMd, faClinicMedical, faHospitalAlt, faPrescriptionBottleAlt, faHandsHelping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(
+    faShoppingCart,
+    faUserMd,
+    faClinicMedical,
+    faHospitalAlt,
+    faPrescriptionBottleAlt,
+    faHandsHelping
+);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
 Vue.use(VueGoogleMaps, {
     load: {
         key: process.env.MIX_GOOGLE_API
