@@ -71,7 +71,7 @@
         
         async created () {
             await axios
-                .get('http://service.test/locations/all')
+                .get('/locations/all')
                 .then(response => (
                     this.locations = response.data.locations
                     

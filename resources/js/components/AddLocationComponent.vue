@@ -87,7 +87,7 @@
             this.google = googleMapApi
 
             axios
-            .get('http://service.test/category/all')
+            .get('/category/all')
             .then(response => (this.categories = response.data))
         },
         methods: {

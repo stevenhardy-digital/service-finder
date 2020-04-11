@@ -12021,7 +12021,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               googleMapApi = _context.sent;
               _this.google = googleMapApi;
-              axios.get('http://service.test/category/all').then(function (response) {
+              axios.get('/category/all').then(function (response) {
                 return _this.categories = response.data;
               });
 
@@ -12210,7 +12210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.get('http://service.test/locations/all').then(function (response) {
+              return axios.get('/locations/all').then(function (response) {
                 return _this.locations = response.data.locations;
               });
 
