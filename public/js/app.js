@@ -12011,6 +12011,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -12018,7 +12046,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       categories: [],
       name: '',
       location: '',
-      openingHours: [],
+      opening_times: [],
+      day: {
+        day: '',
+        open_time: '',
+        close_time: ''
+      },
       category: '',
       logo: '',
       success: '',
@@ -12076,8 +12109,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
       var formData = new FormData();
       formData.append('name', this.name);
-      formData.append('location', this.location);
-      formData.append('opening_hours', this.openingHours);
+      formData.append('location', this.location); // const hours = this.openingHours;
+      // hours.forEach((day) => {
+      //     formData.append('opening_hours[]', day)
+      // });
+
       formData.append('category', this.category);
       formData.append('logo', this.logo);
       formData.append('latitude', this.latLong.latitude);
@@ -12108,6 +12144,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(status);
         }
       });
+    },
+    addOpeningTimes: function addOpeningTimes() {
+      this.opening_times = [];
+      this.opening_times.push(this.day);
     }
   }
 });
@@ -12164,6 +12204,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -12405,6 +12449,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     closeInfoWindow: function closeInfoWindow() {
       this.infoBoxOpen = false;
       this.selectedLocation = null;
+    },
+    openingHours: function openingHours(string) {
+      var array = JSON.stringify(selectedLocation.opening_hours);
+      console.log(array);
     }
   }
 });
@@ -51016,42 +51064,94 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "checkbox", id: "mon", value: "Monday" },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Monday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Monday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Monday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Monday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51067,42 +51167,94 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "checkbox", id: "tues", value: "Tuesday" },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Tuesday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Tuesday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Tuesday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Tuesday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51118,8 +51270,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
@@ -51129,35 +51281,87 @@ var render = function() {
                         value: "Wednesday"
                       },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Wednesday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Wednesday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Wednesday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Wednesday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51173,8 +51377,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
@@ -51184,35 +51388,87 @@ var render = function() {
                         value: "Thursday"
                       },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Thursday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Thursday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Thursday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Thursday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51225,42 +51481,94 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "checkbox", id: "fri", value: "Friday" },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Friday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Friday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Friday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Friday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51276,42 +51584,94 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "checkbox", id: "sat", value: "Saturday" },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Saturday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Saturday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Saturday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Saturday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-check" }, [
@@ -51324,42 +51684,94 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.openingHours,
-                          expression: "openingHours"
+                          value: _vm.day.day,
+                          expression: "day.day"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "checkbox", id: "sun", value: "Sunday" },
                       domProps: {
-                        checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "Sunday") > -1
-                          : _vm.openingHours
+                        checked: Array.isArray(_vm.day.day)
+                          ? _vm._i(_vm.day.day, "Sunday") > -1
+                          : _vm.day.day
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.openingHours,
+                          var $$a = _vm.day.day,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
                             var $$v = "Sunday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
-                              $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
+                              $$i < 0 &&
+                                _vm.$set(_vm.day, "day", $$a.concat([$$v]))
                             } else {
                               $$i > -1 &&
-                                (_vm.openingHours = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.day,
+                                  "day",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.openingHours = $$c
+                            _vm.$set(_vm.day, "day", $$c)
                           }
                         }
                       }
                     }),
                     _vm._v("Sunday")
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("label", [_vm._v("Open Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.open_time,
+                      expression: "day.open_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.open_time },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "open_time", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Close Time")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.day.close_time,
+                      expression: "day.close_time"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.day.close_time },
+                  on: {
+                    blur: function($event) {
+                      return _vm.addOpeningTimes()
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.day, "close_time", $event.target.value)
+                    }
+                  }
+                })
               ])
             ]),
             _vm._v(" "),
@@ -52006,95 +52418,105 @@ var render = function() {
           ),
           _vm._v(" "),
           _vm._l(_vm.locations, function(location) {
-            return _c(
-              "a",
-              {
-                key: location.id,
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.centreMap(location)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "location" },
+            return _vm.locations
+              ? _c(
+                  "a",
+                  {
+                    key: location.id,
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.centreMap(location)
+                      }
+                    }
+                  },
                   [
-                    _c("div", { staticClass: "logo" }, [
-                      _c("img", {
-                        attrs: { src: location.logo, alt: location.name }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "details" }, [
-                      _c("h5", [_vm._v(_vm._s(location.name))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(location.location))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(location.description))])
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(location.categories, function(category) {
-                      return _c(
-                        "div",
-                        { key: category.id, staticClass: "icon" },
-                        [
-                          category.name == "Food"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#28a228" },
-                                attrs: { icon: ["fas", "shopping-cart"] }
-                              })
-                            : _vm._e(),
+                    _c(
+                      "div",
+                      { staticClass: "location" },
+                      [
+                        _c("div", { staticClass: "logo" }, [
+                          _c("img", {
+                            attrs: { src: location.logo, alt: location.name }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "details" }, [
+                          _c("h5", [_vm._v(_vm._s(location.name))]),
                           _vm._v(" "),
-                          category.name == "Health"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#ff00ff" },
-                                attrs: { icon: ["fas", "clinic-medical"] }
-                              })
-                            : _vm._e(),
+                          _c("p", [_vm._v(_vm._s(location.location))]),
                           _vm._v(" "),
-                          category.name == "Pharamist"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#B8860B" },
-                                attrs: {
-                                  icon: ["fas", "prescription-bottle-alt"]
-                                }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          category.name == "Doctors"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#3498DB" },
-                                attrs: { icon: ["fas", "user-md"] }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          category.name == "Hospital"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#FF0000" },
-                                attrs: { icon: ["fas", "hospital-alt"] }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          category.name == "Community Worker"
-                            ? _c("font-awesome-icon", {
-                                staticStyle: { color: "#D35400" },
-                                attrs: { icon: ["fas", "hands-helping"] }
-                              })
-                            : _vm._e()
-                        ],
-                        1
-                      )
-                    })
-                  ],
-                  2
+                          _c("p", [_vm._v(_vm._s(location.description))])
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(location.categories, function(category) {
+                          return _c(
+                            "div",
+                            { key: category.id, staticClass: "icon" },
+                            [
+                              category.name == "Food"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#28a228" },
+                                    attrs: { icon: ["fas", "shopping-cart"] }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              category.name == "Health"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#ff00ff" },
+                                    attrs: { icon: ["fas", "clinic-medical"] }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              category.name == "Pharamist"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#B8860B" },
+                                    attrs: {
+                                      icon: ["fas", "prescription-bottle-alt"]
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              category.name == "Doctors"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#3498DB" },
+                                    attrs: { icon: ["fas", "user-md"] }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              category.name == "Hospital"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#FF0000" },
+                                    attrs: { icon: ["fas", "hospital-alt"] }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              category.name == "Community Worker"
+                                ? _c("font-awesome-icon", {
+                                    staticStyle: { color: "#D35400" },
+                                    attrs: { icon: ["fas", "hands-helping"] }
+                                  })
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]
                 )
-              ]
-            )
-          })
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _vm.locations.length == 0
+            ? _c("div", { staticClass: "no-service" }, [
+                _vm._v(
+                  "\n               no locations or service\n\n           "
+                )
+              ])
+            : _vm._e()
         ],
         2
       ),
@@ -52189,14 +52611,11 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "ul",
-                              _vm._l(
-                                JSON.parse(
-                                  _vm.selectedLocation.opening_hours
-                                ).split(","),
-                                function(day) {
-                                  return _c("li", [_vm._v(_vm._s(day))])
-                                }
-                              ),
+                              _vm._l(_vm.selectedLocation.hours, function(day) {
+                                return _c("li", { key: day.id }, [
+                                  _vm._v(_vm._s(day.day))
+                                ])
+                              }),
                               0
                             ),
                             _vm._v(" "),

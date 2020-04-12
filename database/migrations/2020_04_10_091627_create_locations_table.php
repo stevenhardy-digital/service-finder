@@ -17,7 +17,6 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('location');
-            $table->json('opening_hours')->nullable();
             $table->string('longitude');
             $table->string('latitude');
             $table->string('logo')->nullable();

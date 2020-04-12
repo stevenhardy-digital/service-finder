@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </a>
-                <a @click.prevent="centreMap(location)" v-for="location in locations" :key="location.id" href="#">
+                <a @click.prevent="centreMap(location)" v-for="location in locations" :key="location.id" href="#" v-if='locations'>
                     <div class="location">
                         <div class="logo">
                             <img :src="location.logo" :alt="location.name" />
@@ -110,6 +110,10 @@
                         </div>
                     </div>
                </a>
+               <div class="no-service" v-if="locations.length == 0">
+                   no locations or service
+
+               </div>
             </div>
             <div class="col-sm-8 map">
                <GmapMap
@@ -141,7 +145,7 @@
                                 <p v-if="selectedLocation.email">Email: <a :href="'mailto:' + selectedLocation.email">{{selectedLocation.email}}</a></p>
                                 <h5>Opening hours</h5>
                                 <ul>
-                                    <li v-for="day in JSON.parse(selectedLocation.opening_hours).split(',')">{{day}}</li>
+                                    <li v-for="day in selectedLocation.hours" :key="day.id">{{day.day}}</li>
                                 </ul>
                                 <div v-if="selectedLocation.services.length">
                                     <h5>Services Offered</h5>
@@ -230,6 +234,10 @@
             closeInfoWindow() {
                 this.infoBoxOpen = false;
                 this.selectedLocation = null;
+            },
+            openingHours(string) {
+                const array = JSON.stringify(selectedLocation.opening_hours);
+                console.log(array);
             }
         },
     }
