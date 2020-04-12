@@ -11985,6 +11985,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -12001,7 +12027,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         latitude: '',
         longitude: ''
       },
-      description: ''
+      description: '',
+      phone: '',
+      email: '',
+      services: []
     };
   },
   mounted: function mounted() {
@@ -12054,6 +12083,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.append('latitude', this.latLong.latitude);
       formData.append('longitude', this.latLong.longitude);
       formData.append('description', this.description);
+      var services = this.services;
+      services.forEach(function (item) {
+        formData.append('services[]', item);
+      });
+      formData.append('phone', this.phone);
+      formData.append('email', this.email);
       axios.post('/add-location', formData, config).then(function (response) {
         currentObj.success = response.data.success;
       })["catch"](function (error) {
@@ -12187,6 +12222,126 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -12198,7 +12353,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         lng: 0.550927
       },
       selectedLocation: null,
-      infoBoxOpen: false
+      infoBoxOpen: false,
+      showKey: false
     };
   },
   created: function created() {
@@ -50756,6 +50912,58 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Phone Number:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.phone,
+                    expression: "phone"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.phone },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.phone = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Email Address:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "email" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Category")]),
               _vm._v(" "),
               _c(
@@ -50787,7 +50995,9 @@ var render = function() {
                   }
                 },
                 _vm._l(_vm.categories, function(category) {
-                  return _c("option", [_vm._v(_vm._s(category.name))])
+                  return _c("option", { key: category.id }, [
+                    _vm._v(_vm._s(category.name))
+                  ])
                 }),
                 0
               )
@@ -50811,10 +51021,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "mon", value: "mon" },
+                      attrs: { type: "checkbox", id: "mon", value: "Monday" },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "mon") > -1
+                          ? _vm._i(_vm.openingHours, "Monday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -50823,7 +51033,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "mon",
+                            var $$v = "Monday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -50862,10 +51072,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "tues", value: "tues" },
+                      attrs: { type: "checkbox", id: "tues", value: "Tuesday" },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "tues") > -1
+                          ? _vm._i(_vm.openingHours, "Tuesday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -50874,7 +51084,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "tues",
+                            var $$v = "Tuesday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -50913,10 +51123,14 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "wed", value: "wed" },
+                      attrs: {
+                        type: "checkbox",
+                        id: "wed",
+                        value: "Wednesday"
+                      },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "wed") > -1
+                          ? _vm._i(_vm.openingHours, "Wednesday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -50925,7 +51139,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "wed",
+                            var $$v = "Wednesday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -50964,10 +51178,14 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "thurs", value: "thurs" },
+                      attrs: {
+                        type: "checkbox",
+                        id: "thurs",
+                        value: "Thursday"
+                      },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "thurs") > -1
+                          ? _vm._i(_vm.openingHours, "Thursday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -50976,7 +51194,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "thurs",
+                            var $$v = "Thursday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -51012,10 +51230,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "fri", value: "fri" },
+                      attrs: { type: "checkbox", id: "fri", value: "Friday" },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "fri") > -1
+                          ? _vm._i(_vm.openingHours, "Friday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -51024,7 +51242,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "fri",
+                            var $$v = "Friday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -51063,10 +51281,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "sat", value: "sat" },
+                      attrs: { type: "checkbox", id: "sat", value: "Saturday" },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "sat") > -1
+                          ? _vm._i(_vm.openingHours, "Saturday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -51075,7 +51293,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "sat",
+                            var $$v = "Saturday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -51111,10 +51329,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox", id: "sun", value: "sun" },
+                      attrs: { type: "checkbox", id: "sun", value: "Sunday" },
                       domProps: {
                         checked: Array.isArray(_vm.openingHours)
-                          ? _vm._i(_vm.openingHours, "sun") > -1
+                          ? _vm._i(_vm.openingHours, "Sunday") > -1
                           : _vm.openingHours
                       },
                       on: {
@@ -51123,7 +51341,7 @@ var render = function() {
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "sun",
+                            var $$v = "Sunday",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 && (_vm.openingHours = $$a.concat([$$v]))
@@ -51178,6 +51396,285 @@ var render = function() {
                   }
                 }
               })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Services")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "Home delivery" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.services,
+                          expression: "services"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "mon",
+                        value: "Home delivery"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.services)
+                          ? _vm._i(_vm.services, "Home delivery") > -1
+                          : _vm.services
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.services,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "Home delivery",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.services = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.services = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v("Home delivery")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "Click and Collect" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.services,
+                          expression: "services"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "mon",
+                        value: "Click and Collect"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.services)
+                          ? _vm._i(_vm.services, "Click and Collect") > -1
+                          : _vm.services
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.services,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "Click and Collect",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.services = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.services = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v("Click and Collect")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "Take away" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.services,
+                          expression: "services"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "mon",
+                        value: "Take away"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.services)
+                          ? _vm._i(_vm.services, "Take away") > -1
+                          : _vm.services
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.services,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "Take away",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.services = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.services = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v("Take away")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "Contact free" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.services,
+                          expression: "services"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "mon",
+                        value: "Contact free"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.services)
+                          ? _vm._i(_vm.services, "Contact free") > -1
+                          : _vm.services
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.services,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "Contact free",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.services = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.services = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v("Contact free")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "Telephone Call" }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.services,
+                          expression: "services"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "mon",
+                        value: "Telephone Call"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.services)
+                          ? _vm._i(_vm.services, "Telephone Call") > -1
+                          : _vm.services
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.services,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = "Telephone Call",
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.services = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.services = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v("Telephone Call")
+                  ]
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("button", { staticClass: "btn btn-success" }, [_vm._v("Submit")])
@@ -51269,97 +51766,337 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-sm-4 services-list" },
-        _vm._l(_vm.locations, function(location) {
-          return _c(
+        [
+          _c(
             "a",
             {
-              key: location.id,
               attrs: { href: "#" },
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.centreMap(location)
+                  _vm.showKey = !_vm.showKey
                 }
               }
             },
             [
-              _c(
-                "div",
-                { staticClass: "location" },
-                [
-                  _c("div", { staticClass: "logo" }, [
-                    _c("img", {
-                      attrs: { src: location.logo, alt: location.name }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "details" }, [
-                    _c("h5", [_vm._v(_vm._s(location.name))]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(location.location))]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(location.description))])
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(location.categories, function(category) {
-                    return _c(
-                      "div",
-                      { key: category.id, staticClass: "icon" },
-                      [
-                        category.name == "Food"
-                          ? _c("font-awesome-icon", {
+              _c("div", { staticClass: "key w-100" }, [
+                _c("h2", [_vm._v("Key")]),
+                _vm._v(" "),
+                _vm.showKey
+                  ? _c("div", { staticClass: "hidden" }, [
+                      _c("h5", [_vm._v("Categories")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#28a228" },
                               attrs: { icon: ["fas", "shopping-cart"] }
                             })
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        category.name == "Health"
-                          ? _c("font-awesome-icon", {
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Shop\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#ff00ff" },
                               attrs: { icon: ["fas", "clinic-medical"] }
                             })
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        category.name == "Pharamist"
-                          ? _c("font-awesome-icon", {
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Health\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#B8860B" },
                               attrs: {
                                 icon: ["fas", "prescription-bottle-alt"]
                               }
                             })
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        category.name == "Doctors"
-                          ? _c("font-awesome-icon", {
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Pharamist\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#3498DB" },
                               attrs: { icon: ["fas", "user-md"] }
                             })
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        category.name == "Hospital"
-                          ? _c("font-awesome-icon", {
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Doctors\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#FF0000" },
                               attrs: { icon: ["fas", "hospital-alt"] }
                             })
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        category.name == "Community Worker"
-                          ? _c("font-awesome-icon", {
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Hospital\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
                               staticStyle: { color: "#D35400" },
                               attrs: { icon: ["fas", "hands-helping"] }
                             })
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  })
-                ],
-                2
-              )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Community Worker\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v("Services")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
+                              staticStyle: { color: "#f38d22" },
+                              attrs: { icon: ["fas", "home"] }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Home delivery\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
+                              staticStyle: { color: "#f38d22" },
+                              attrs: { icon: ["fas", "mouse"] }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Click and Collect\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
+                              staticStyle: { color: "#f38d22" },
+                              attrs: { icon: ["fas", "drumstick-bite"] }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Take away\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
+                              staticStyle: { color: "#f38d22" },
+                              attrs: { icon: ["fas", "people-arrows"] }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Contact free\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row align-items-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-1" },
+                          [
+                            _c("font-awesome-icon", {
+                              staticStyle: { color: "#f38d22" },
+                              attrs: { icon: ["fas", "phone"] }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-4 px-4" }, [
+                          _vm._v(
+                            "\n                                Telephone call\n                            "
+                          )
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
+              ])
             ]
-          )
-        }),
-        0
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.locations, function(location) {
+            return _c(
+              "a",
+              {
+                key: location.id,
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.centreMap(location)
+                  }
+                }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "location" },
+                  [
+                    _c("div", { staticClass: "logo" }, [
+                      _c("img", {
+                        attrs: { src: location.logo, alt: location.name }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "details" }, [
+                      _c("h5", [_vm._v(_vm._s(location.name))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(location.location))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(location.description))])
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(location.categories, function(category) {
+                      return _c(
+                        "div",
+                        { key: category.id, staticClass: "icon" },
+                        [
+                          category.name == "Food"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#28a228" },
+                                attrs: { icon: ["fas", "shopping-cart"] }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          category.name == "Health"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#ff00ff" },
+                                attrs: { icon: ["fas", "clinic-medical"] }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          category.name == "Pharamist"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#B8860B" },
+                                attrs: {
+                                  icon: ["fas", "prescription-bottle-alt"]
+                                }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          category.name == "Doctors"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#3498DB" },
+                                attrs: { icon: ["fas", "user-md"] }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          category.name == "Hospital"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#FF0000" },
+                                attrs: { icon: ["fas", "hospital-alt"] }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          category.name == "Community Worker"
+                            ? _c("font-awesome-icon", {
+                                staticStyle: { color: "#D35400" },
+                                attrs: { icon: ["fas", "hands-helping"] }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    })
+                  ],
+                  2
+                )
+              ]
+            )
+          })
+        ],
+        2
       ),
       _vm._v(" "),
       _c(
@@ -51411,27 +52148,236 @@ var render = function() {
                         "div",
                         {
                           staticClass: "infoWindow",
-                          staticStyle: { width: "300px" }
+                          staticStyle: { width: "400px" }
                         },
                         [
-                          _c("h2", { attrs: { id: "infoWindow-location" } }, [
-                            _vm._v(_vm._s(_vm.selectedLocation.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(_vm._s(_vm.selectedLocation.description))
+                          _c("div", { staticClass: "col-sm-9 details" }, [
+                            _c("h2", { attrs: { id: "infoWindow-location" } }, [
+                              _vm._v(_vm._s(_vm.selectedLocation.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(_vm._s(_vm.selectedLocation.description))
+                            ]),
+                            _vm._v(" "),
+                            _c("h5", [_vm._v("Contact Details")]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                "Phone Number: " +
+                                  _vm._s(_vm.selectedLocation.phone)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.selectedLocation.email
+                              ? _c("p", [
+                                  _vm._v("Email: "),
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href:
+                                          "mailto:" + _vm.selectedLocation.email
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.selectedLocation.email))]
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("h5", [_vm._v("Opening hours")]),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              _vm._l(
+                                JSON.parse(
+                                  _vm.selectedLocation.opening_hours
+                                ).split(","),
+                                function(day) {
+                                  return _c("li", [_vm._v(_vm._s(day))])
+                                }
+                              ),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm.selectedLocation.services.length
+                              ? _c("div", [
+                                  _c("h5", [_vm._v("Services Offered")]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "icon-row" },
+                                    _vm._l(
+                                      _vm.selectedLocation.services,
+                                      function(service) {
+                                        return _c(
+                                          "div",
+                                          {
+                                            key: service.id,
+                                            staticClass: "icon"
+                                          },
+                                          [
+                                            service.name == "Home delivery"
+                                              ? _c("font-awesome-icon", {
+                                                  staticStyle: {
+                                                    color: "#f38d22"
+                                                  },
+                                                  attrs: {
+                                                    icon: ["fas", "home"]
+                                                  }
+                                                })
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            service.name == "Click and Collect"
+                                              ? _c("font-awesome-icon", {
+                                                  staticStyle: {
+                                                    color: "#f38d22"
+                                                  },
+                                                  attrs: {
+                                                    icon: ["fas", "mouse"]
+                                                  }
+                                                })
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            service.name == "Take away"
+                                              ? _c("font-awesome-icon", {
+                                                  staticStyle: {
+                                                    color: "#f38d22"
+                                                  },
+                                                  attrs: {
+                                                    icon: [
+                                                      "fas",
+                                                      "drumstick-bite"
+                                                    ]
+                                                  }
+                                                })
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            service.name == "Contact Free"
+                                              ? _c("font-awesome-icon", {
+                                                  staticStyle: {
+                                                    color: "#f38d22"
+                                                  },
+                                                  attrs: {
+                                                    icon: [
+                                                      "fas",
+                                                      "people-arrows"
+                                                    ]
+                                                  }
+                                                })
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            service.name == "Telephone Call"
+                                              ? _c("font-awesome-icon", {
+                                                  staticStyle: {
+                                                    color: "#f38d22"
+                                                  },
+                                                  attrs: {
+                                                    icon: ["fas", "phone"]
+                                                  }
+                                                })
+                                              : _vm._e()
+                                          ],
+                                          1
+                                        )
+                                      }
+                                    ),
+                                    0
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.closeInfoWindow()
+                                  }
+                                }
+                              },
+                              [_vm._v("Close")]
+                            )
                           ]),
                           _vm._v(" "),
                           _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.closeInfoWindow()
+                            "div",
+                            { staticClass: "col-sm-3 logo" },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.selectedLocation.logo,
+                                  alt: _vm.selectedLocation.name
                                 }
-                              }
-                            },
-                            [_vm._v("Close")]
+                              }),
+                              _vm._v(" "),
+                              _vm._l(_vm.selectedLocation.categories, function(
+                                category
+                              ) {
+                                return _c(
+                                  "div",
+                                  { key: category.id, staticClass: "icon" },
+                                  [
+                                    category.name == "Food"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#28a228" },
+                                          attrs: {
+                                            icon: ["fas", "shopping-cart"]
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    category.name == "Health"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#ff00ff" },
+                                          attrs: {
+                                            icon: ["fas", "clinic-medical"]
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    category.name == "Pharamist"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#B8860B" },
+                                          attrs: {
+                                            icon: [
+                                              "fas",
+                                              "prescription-bottle-alt"
+                                            ]
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    category.name == "Doctors"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#3498DB" },
+                                          attrs: { icon: ["fas", "user-md"] }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    category.name == "Hospital"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#FF0000" },
+                                          attrs: {
+                                            icon: ["fas", "hospital-alt"]
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    category.name == "Community Worker"
+                                      ? _c("font-awesome-icon", {
+                                          staticStyle: { color: "#D35400" },
+                                          attrs: {
+                                            icon: ["fas", "hands-helping"]
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              })
+                            ],
+                            2
                           )
                         ]
                       )
@@ -66206,7 +67152,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faShoppingCart"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faUserMd"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faClinicMedical"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faHospitalAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faPrescriptionBottleAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faHandsHelping"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faShoppingCart"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faUserMd"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faClinicMedical"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faHospitalAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faPrescriptionBottleAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faHandsHelping"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faPeopleArrows"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faPhone"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faDrumstickBite"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faMouse"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faHome"]);
 Vue.component("font-awesome-icon", _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"]);
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_0__, {
   load: {

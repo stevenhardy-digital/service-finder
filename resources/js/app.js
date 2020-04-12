@@ -11,7 +11,7 @@ window.Vue = require('vue');
 import * as VueGoogleMaps from "vue2-google-maps";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faShoppingCart, faUserMd, faClinicMedical, faHospitalAlt, faPrescriptionBottleAlt, faHandsHelping } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faUserMd, faClinicMedical, faHospitalAlt, faPrescriptionBottleAlt, faHandsHelping, faPeopleArrows, faPhone, faDrumstickBite, faMouse, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
@@ -20,7 +20,12 @@ library.add(
     faClinicMedical,
     faHospitalAlt,
     faPrescriptionBottleAlt,
-    faHandsHelping
+    faHandsHelping,
+    faPeopleArrows,
+    faPhone,
+    faDrumstickBite,
+    faMouse,
+    faHome
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

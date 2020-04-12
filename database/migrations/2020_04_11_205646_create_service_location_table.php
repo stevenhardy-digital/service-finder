@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationServiceTable extends Migration
+class CreateServiceLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateLocationServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_service', function (Blueprint $table) {
+        Schema::create('service_location', function (Blueprint $table) {
             $table->id();
-             $table->integer('location_id')->unsigned();
-            $table->integer('service_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateLocationServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_service');
+        Schema::dropIfExists('service_location');
     }
 }

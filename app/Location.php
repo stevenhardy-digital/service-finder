@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    protected $fillable = ['name','location', 'description', 'opening_hours', 'logo', 'longitude', 'latitude'];
+    protected $fillable = ['name','location', 'description', 'opening_hours', 'logo', 'longitude', 'latitude', 'phone', 'email'];
      public function categories()
     {
         return $this->belongsToMany(Category::class);

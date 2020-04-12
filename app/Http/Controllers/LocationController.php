@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use App\Category;
 use App\Location;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class LocationController extends Controller
     }
 
     public function getLocations() {
-        $locations = Location::with('categories')->get();
+        $locations = Location::with(['categories', 'services'])->get();
 
         return response()->json(['locations' => $locations]);
     }
@@ -44,12 +45,21 @@ class LocationController extends Controller
             'logo' => '/images/' . $imageName,
             'longitude' => $location['longitude'],
             'latitude' => $location['latitude'],
-            'description' => $location['description']
+            'description' => $location['description'],
+            'phone' => $location['phone'],
+            'email' => $location['email']
         ]);
 
         $category = Category::firstOrCreate(['name' => $location['category']]);
 
         $loc->categories()->attach($category);
+
+        $services = $location['services'];
+        
+        foreach($services as $service) {
+            $serv = Service::where('name', $service)->first();
+            $loc->services()->attach($serv->id);
+        }
 
         return response()->json(['success' => 'You have added a location, thank you!']);
     }

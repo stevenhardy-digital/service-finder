@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationServiceTable extends Migration
+class AddColumnsToLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateLocationServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_service', function (Blueprint $table) {
-            $table->id();
-             $table->integer('location_id')->unsigned();
-            $table->integer('service_id')->unsigned();
-            $table->timestamps();
+        Schema::table('locations', function (Blueprint $table) {
+            $table->string('phone');
+            $table->string('email')->nullable();
         });
     }
 
@@ -28,6 +26,9 @@ class CreateLocationServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_service');
+        Schema::table('locations', function (Blueprint $table) {
+            $table->dropColumn('phone');
+            $table->dropColumn('email');
+        });
     }
 }

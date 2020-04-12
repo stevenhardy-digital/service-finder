@@ -652,7 +652,8 @@ pre code {
   }
 }
 
-.row {
+.row,
+.infoWindow {
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
@@ -10898,6 +10899,46 @@ a.text-dark:focus {
   height: 94vh;
 }
 
+.gm-style .gm-style-iw-c {
+  padding: 12px !important;
+}
+
+.gm-style .gm-style-iw-d {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+.infoWindow .details .icon-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.infoWindow .details .icon-row .icon svg {
+  width: 30px;
+  height: 30px;
+  margin: 10px 15px 10px 0;
+}
+
+.infoWindow .logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.infoWindow .logo .icon {
+  display: block;
+  margin: 0 auto;
+}
+
+.infoWindow .logo .icon svg {
+  width: 50px;
+  height: 50px;
+  margin: 10px auto;
+  display: block;
+}
+
 .services-list {
   height: 94vh;
   border-right: 2px solid grey;
@@ -10916,7 +10957,7 @@ a.text-dark:focus {
 
 .services-list a .location {
   border-bottom: 1px solid grey;
-  padding: 10px 20px;
+  padding: 10px 20px 0;
 }
 
 .services-list a .location img {
@@ -10939,5 +10980,16 @@ a.text-dark:focus {
   width: 35px;
   height: 35px;
   margin: 20px 0 20px 20px;
+}
+
+.services-list .key {
+  background-color: #ececec;
+  padding: 20px;
+  border-bottom: 2px solid gray;
+}
+
+.services-list .key svg {
+  width: 35px;
+  height: 35px;
 }
 
