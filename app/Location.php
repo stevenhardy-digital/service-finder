@@ -17,7 +17,7 @@ class Location extends Model
         return $this->belongsToMany(Service::class);
     }
 
-    public function openingTimes() {
+    public function opening_times() {
         return $this->hasMany(OpeningTimes::class);
     }
 }

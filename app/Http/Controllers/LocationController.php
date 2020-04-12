@@ -21,7 +21,7 @@ class LocationController extends Controller
     }
 
     public function getLocations() {
-        $locations = Location::with(['categories', 'services', 'hours'])->get();
+        $locations = Location::with(['categories', 'services', 'opening_times'])->get();
 
         return response()->json(['locations' => $locations]);
     }
@@ -61,16 +61,16 @@ class LocationController extends Controller
             $loc->services()->attach($serv->id);
         }
 
-        $hours = $location['opening_hours'];
-        
-        foreach($hours as $hour) {
+        // $hours = $location['opening_hours'];
+        foreach($days as $day) {
             $times = OpeningTimes::create([
                 'location_id' => $loc->id,
-                'day' => $hour->day,
-                'open_time' => $hour->open_time,
-                'closed_time' => $hour->close_time
+                'day' => $day->day,
+                'open_time' => $day->open_time,
+                'closed_time' => $day->close_time
             ]);
         }
+
 
         return response()->json(['success' => 'You have added a location, thank you!']);
     }

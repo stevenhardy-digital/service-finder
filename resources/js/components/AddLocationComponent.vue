@@ -28,55 +28,13 @@
                     </div>
                     <div class="form-group">
                         <label>Opening Hours</label>
-                        <div class="form-check">
-                            <label for="Monday" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Monday" v-model="day.day">Monday</label>
+                        <div class="form-check" v-for="day in days" :key="day">
+                            <label :for="day" class="form-check-label"><input type="checkbox" :id="day" class="form-check-input" :value="day" v-model="opening_times[day]['day']">{{day}}</label>
                             <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
+                            <input type="text" v-model="opening_times[day]['open_time']"/>
                             <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>
+                            <input type="text" v-model="opening_times[day]['close_time']" />
                         </div>    
-                        <div class="form-check"> 
-                            <label for="Tuesday" class="form-check-label"><input type="checkbox" id="tues" class="form-check-input" value="Tuesday" v-model="day.day">Tuesday</label>
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>
-                        </div>
-                        <div class="form-check">
-                            <label for="Wednesday" class="form-check-label"><input type="checkbox" id="wed" class="form-check-input" value="Wednesday" v-model="day.day">Wednesday</label> 
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>       
-                        </div>
-                        <div class="form-check">
-                            <label for="Thursday" class="form-check-label"><input type="checkbox" id="thurs" class="form-check-input" value="Thursday" v-model="day.day">Thursday</label>
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>     
-                        </div>   
-                        <div class="form-check">
-                            <label for="Friday" class="form-check-label"><input type="checkbox" id="fri" class="form-check-input" value="Friday" v-model="day.day">Friday</label>
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>      
-                        </div>   
-                        <div class="form-check">
-                            <label for="Saturday" class="form-check-label"><input type="checkbox" id="sat" class="form-check-input" value="Saturday" v-model="day.day">Saturday</label>
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>        
-                        </div>   
-                        <div class="form-check">
-                            <label for="Sunday" class="form-check-label"><input type="checkbox" id="sun" class="form-check-input" value="Sunday" v-model="day.day">Sunday</label>  
-                            <label>Open Time</label>
-                            <input type="text" v-model="day.open_time"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="day.close_time" v-on:blur="addOpeningTimes()"/>      
-                        </div>      
                     </div>  
                     <div class="form-group">
                         <label>Logo or Image</label>
@@ -122,12 +80,43 @@
                 categories: [],
                 name: '',
                 location: '',
-                opening_times: [],
-                day: {
-                    day: '',
-                    open_time: '',
-                    close_time: '',
-                },
+                opening_times: {
+                    Monday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Tuesday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Wednesday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Thursday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Friday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Saturday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                    Sunday: {
+                        day: null,
+                        open_time: null,
+                        closing_time: null
+                    },
+                } ,
                 category: '',
                 logo: '',
                 success: '',
@@ -139,7 +128,8 @@
                 description: '',
                 phone: '',
                 email: '',
-                services: []
+                services: [],
+                days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
             }
         },
         async mounted() {
@@ -209,10 +199,6 @@
                         console.log(status)
                     }
                });
-            },
-            addOpeningTimes() {
-                this.opening_times = [];
-                this.opening_times.push(this.day);
             }
         }
 

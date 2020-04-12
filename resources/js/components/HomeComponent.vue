@@ -145,7 +145,7 @@
                                 <p v-if="selectedLocation.email">Email: <a :href="'mailto:' + selectedLocation.email">{{selectedLocation.email}}</a></p>
                                 <h5>Opening hours</h5>
                                 <ul>
-                                    <li v-for="day in selectedLocation.hours" :key="day.id">{{day.day}}</li>
+                                    <li v-for="day in selectedLocation.opening_times" :key="day.id">{{day}}</li>
                                 </ul>
                                 <div v-if="selectedLocation.services.length">
                                     <h5>Services Offered</h5>
