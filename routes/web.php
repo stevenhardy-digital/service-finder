@@ -21,7 +21,6 @@ Auth::routes([
     'register' => false
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/add-location', 'LocationController@index' )->name('add-location');
 Route::post('/add-location', 'LocationController@store' );
 
@@ -35,5 +34,5 @@ Route::group(['prefix' => 'locations'], function () {
 });
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/', 'AdminController@index');
+    Route::get('/admin/', 'AdminController@index');
 });
