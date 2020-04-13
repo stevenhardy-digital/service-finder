@@ -33,3 +33,7 @@ Route::group(['prefix' => 'locations'], function () {
     Route::get('/all', 'LocationController@getLocations');
     Route::get('/markers', 'LocationController@markers');
 });
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', 'AdminController@index');
+});
