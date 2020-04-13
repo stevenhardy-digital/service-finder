@@ -143,7 +143,7 @@
                                 <h5>Contact Details</h5>
                                 <p class="phone">Phone Number: {{selectedLocation.phone}}</p>
                                 <p v-if="selectedLocation.email">Email: <a :href="'mailto:' + selectedLocation.email">{{selectedLocation.email}}</a></p>
-                                <h5>Opening hours</h5>
+                                <h5 class="mt-2">Opening hours</h5>
                                 <table>
                                     <tr>
                                         <th>
@@ -174,7 +174,7 @@
                                             <font-awesome-icon :icon="['fas', 'home']" v-if="service.name == 'Home delivery'" style="color: #f38d22"/>
                                             <font-awesome-icon :icon="['fas', 'mouse']" v-if="service.name == 'Click and Collect'" style="color: #f38d22"/>
                                             <font-awesome-icon :icon="['fas', 'drumstick-bite']" v-if="service.name == 'Take away'" style="color: #f38d22"/>
-                                            <font-awesome-icon :icon="['fas', 'people-arrows']" v-if="service.name == 'Contact Free'" style="color: #f38d22"/>
+                                            <font-awesome-icon :icon="['fas', 'people-arrows']" v-if="service.name == 'Contact free'" style="color: #f38d22"/>
                                             <font-awesome-icon :icon="['fas', 'phone']" v-if="service.name == 'Telephone Call'" style="color: #f38d22"/>
                                         </div>
                                     </div>

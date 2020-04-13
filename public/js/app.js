@@ -51766,7 +51766,9 @@ var render = function() {
                                 ])
                               : _vm._e(),
                             _vm._v(" "),
-                            _c("h5", [_vm._v("Opening hours")]),
+                            _c("h5", { staticClass: "mt-2" }, [
+                              _vm._v("Opening hours")
+                            ]),
                             _vm._v(" "),
                             _c(
                               "table",
@@ -51874,7 +51876,7 @@ var render = function() {
                                                 })
                                               : _vm._e(),
                                             _vm._v(" "),
-                                            service.name == "Contact Free"
+                                            service.name == "Contact free"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
                                                     color: "#f38d22"
