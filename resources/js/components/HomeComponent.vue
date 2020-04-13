@@ -53,13 +53,13 @@
                             <h5>Services</h5>
                             <div class="row align-items-center">
                                 <div class="col-sm-1">
-                                    <font-awesome-icon :icon="['fas', 'home']" style="color: #f38d22"/>
+                                    <font-awesome-icon :icon="['fas', 'home']" style="color: #00408d"/>
                                 </div>
                                 <div class="col-sm-4 px-4">
                                     Home delivery
                                 </div>
                                 <div class="col-sm-1">
-                                    <font-awesome-icon :icon="['fas', 'mouse']" style="color: #f38d22"/>
+                                    <font-awesome-icon :icon="['fas', 'mouse']" style="color: #00408d"/>
                                 </div>
                                 <div class="col-sm-4 px-4">
                                     Click and Collect
@@ -67,13 +67,13 @@
                             </div>
                             <div class="row align-items-center">
                                 <div class="col-sm-1">
-                                    <font-awesome-icon :icon="['fas', 'drumstick-bite']" style="color: #f38d22"/>
+                                    <font-awesome-icon :icon="['fas', 'drumstick-bite']" style="color: #00408d"/>
                                 </div>
                                 <div class="col-sm-4 px-4">
                                     Take away
                                 </div>
                                 <div class="col-sm-1">
-                                    <font-awesome-icon :icon="['fas', 'people-arrows']" style="color: #f38d22"/>
+                                    <font-awesome-icon :icon="['fas', 'people-arrows']" style="color: #00408d"/>
                                 </div>
                                 <div class="col-sm-4 px-4">
                                     Contact free
@@ -81,7 +81,7 @@
                             </div>
                             <div class="row align-items-center">
                                 <div class="col-sm-1">
-                                    <font-awesome-icon :icon="['fas', 'phone']" style="color: #f38d22"/>
+                                    <font-awesome-icon :icon="['fas', 'phone']" style="color: #00408d"/>
                                 </div>
                                 <div class="col-sm-4 px-4">
                                     Telephone call
@@ -171,11 +171,11 @@
                                     <h5>Services Offered</h5>
                                     <div class="icon-row">
                                         <div class="icon" v-for="service in selectedLocation.services" :key="service.id">
-                                            <font-awesome-icon :icon="['fas', 'home']" v-if="service.name == 'Home delivery'" style="color: #f38d22"/>
-                                            <font-awesome-icon :icon="['fas', 'mouse']" v-if="service.name == 'Click and Collect'" style="color: #f38d22"/>
-                                            <font-awesome-icon :icon="['fas', 'drumstick-bite']" v-if="service.name == 'Take away'" style="color: #f38d22"/>
-                                            <font-awesome-icon :icon="['fas', 'people-arrows']" v-if="service.name == 'Contact free'" style="color: #f38d22"/>
-                                            <font-awesome-icon :icon="['fas', 'phone']" v-if="service.name == 'Telephone Call'" style="color: #f38d22"/>
+                                            <font-awesome-icon :icon="['fas', 'home']" v-if="service.name == 'Home delivery'" style="color: #00408d"/>
+                                            <font-awesome-icon :icon="['fas', 'mouse']" v-if="service.name == 'Click and Collect'" style="color: #00408d"/>
+                                            <font-awesome-icon :icon="['fas', 'drumstick-bite']" v-if="service.name == 'Take away'" style="color: #00408d"/>
+                                            <font-awesome-icon :icon="['fas', 'people-arrows']" v-if="service.name == 'Contact free'" style="color: #00408d"/>
+                                            <font-awesome-icon :icon="['fas', 'phone']" v-if="service.name == 'Telephone Call'" style="color: #00408d"/>
                                         </div>
                                     </div>
                                 </div>

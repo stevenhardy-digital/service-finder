@@ -51481,7 +51481,7 @@ var render = function() {
                           { staticClass: "col-sm-1" },
                           [
                             _c("font-awesome-icon", {
-                              staticStyle: { color: "#f38d22" },
+                              staticStyle: { color: "#00408d" },
                               attrs: { icon: ["fas", "home"] }
                             })
                           ],
@@ -51499,7 +51499,7 @@ var render = function() {
                           { staticClass: "col-sm-1" },
                           [
                             _c("font-awesome-icon", {
-                              staticStyle: { color: "#f38d22" },
+                              staticStyle: { color: "#00408d" },
                               attrs: { icon: ["fas", "mouse"] }
                             })
                           ],
@@ -51519,7 +51519,7 @@ var render = function() {
                           { staticClass: "col-sm-1" },
                           [
                             _c("font-awesome-icon", {
-                              staticStyle: { color: "#f38d22" },
+                              staticStyle: { color: "#00408d" },
                               attrs: { icon: ["fas", "drumstick-bite"] }
                             })
                           ],
@@ -51537,7 +51537,7 @@ var render = function() {
                           { staticClass: "col-sm-1" },
                           [
                             _c("font-awesome-icon", {
-                              staticStyle: { color: "#f38d22" },
+                              staticStyle: { color: "#00408d" },
                               attrs: { icon: ["fas", "people-arrows"] }
                             })
                           ],
@@ -51557,7 +51557,7 @@ var render = function() {
                           { staticClass: "col-sm-1" },
                           [
                             _c("font-awesome-icon", {
-                              staticStyle: { color: "#f38d22" },
+                              staticStyle: { color: "#00408d" },
                               attrs: { icon: ["fas", "phone"] }
                             })
                           ],
@@ -51843,7 +51843,7 @@ var render = function() {
                                             service.name == "Home delivery"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
-                                                    color: "#f38d22"
+                                                    color: "#00408d"
                                                   },
                                                   attrs: {
                                                     icon: ["fas", "home"]
@@ -51854,7 +51854,7 @@ var render = function() {
                                             service.name == "Click and Collect"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
-                                                    color: "#f38d22"
+                                                    color: "#00408d"
                                                   },
                                                   attrs: {
                                                     icon: ["fas", "mouse"]
@@ -51865,7 +51865,7 @@ var render = function() {
                                             service.name == "Take away"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
-                                                    color: "#f38d22"
+                                                    color: "#00408d"
                                                   },
                                                   attrs: {
                                                     icon: [
@@ -51879,7 +51879,7 @@ var render = function() {
                                             service.name == "Contact free"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
-                                                    color: "#f38d22"
+                                                    color: "#00408d"
                                                   },
                                                   attrs: {
                                                     icon: [
@@ -51893,7 +51893,7 @@ var render = function() {
                                             service.name == "Telephone Call"
                                               ? _c("font-awesome-icon", {
                                                   staticStyle: {
-                                                    color: "#f38d22"
+                                                    color: "#00408d"
                                                   },
                                                   attrs: {
                                                     icon: ["fas", "phone"]
