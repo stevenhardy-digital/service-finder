@@ -9,7 +9,7 @@ $factory->define(Location::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'location' => $faker->address,
-        'description' => $faker->paragraphs(3, true),
+        'description' => $faker->paragraphs(1, true),
         'longitude' => $faker->longitude,
         'latitude' => $faker->latitude,
         'logo' => $faker->imageUrl(),

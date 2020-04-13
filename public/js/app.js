@@ -11987,16 +11987,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -12006,39 +11996,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       location: '',
       opening_times: {
         Monday: {
-          day: null,
+          day: 'Monday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Tuesday: {
-          day: null,
+          day: 'Tuesday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Wednesday: {
-          day: null,
+          day: 'Wednesday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Thursday: {
-          day: null,
+          day: 'Thursday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Friday: {
-          day: null,
+          day: 'Friday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Saturday: {
-          day: null,
+          day: 'Saturday',
           open_time: null,
-          closing_time: null
+          close_time: null
         },
         Sunday: {
-          day: null,
+          day: 'Sunday',
           open_time: null,
-          closing_time: null
+          close_time: null
         }
       },
       category: '',
@@ -12052,7 +12042,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       description: '',
       phone: '',
       email: '',
-      services: [],
+      location_services: {},
+      services: ['Home delivery', 'Click and Collect', 'Take away', 'Contact free', 'Telephone Call'],
       days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     };
   },
@@ -12085,40 +12076,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
+  computed: {
+    formData: function formData() {
+      return {
+        opening_times: this.opening_times,
+        name: this.name,
+        location: this.location,
+        category: this.category,
+        logo: this.logo,
+        latitude: this.latLong.latitude,
+        longitude: this.latLong.longitude,
+        description: this.description,
+        services: this.location_services,
+        phone: this.phone,
+        email: this.email
+      };
+    }
+  },
   methods: {
-    onImageChange: function onImageChange(e) {
-      this.logo = e.target.files[0];
-    },
     addLocation: function addLocation(e) {
       e.preventDefault();
-      var currentObj = this;
-      var config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-      };
-      var formData = new FormData();
-      formData.append('name', this.name);
-      formData.append('location', this.location); // const hours = this.openingHours;
-      // hours.forEach((day) => {
-      //     formData.append('opening_hours[]', day)
-      // });
-
-      formData.append('category', this.category);
-      formData.append('logo', this.logo);
-      formData.append('latitude', this.latLong.latitude);
-      formData.append('longitude', this.latLong.longitude);
-      formData.append('description', this.description);
-      var services = this.services;
-      services.forEach(function (item) {
-        formData.append('services[]', item);
-      });
-      formData.append('phone', this.phone);
-      formData.append('email', this.email);
-      axios.post('/add-location', formData, config).then(function (response) {
-        currentObj.success = response.data.success;
+      var current = this;
+      axios.post('/add-location', this.formData).then(function (response) {
+        current.success = response.data.success;
       })["catch"](function (error) {
-        currentObj.output = error;
+        current.output = error;
       });
     },
     getLongLat: function getLongLat() {
@@ -12372,6 +12354,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -12418,7 +12420,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           position: {
             lat: Number(item.latitude),
             lng: Number(item.longitude)
-          }
+          },
+          location: item
         };
       });
       this.markers = result;
@@ -51044,118 +51047,72 @@ var render = function() {
                 _c("label", [_vm._v("Opening Hours")]),
                 _vm._v(" "),
                 _vm._l(_vm.days, function(day) {
-                  return _c("div", { key: day, staticClass: "form-check" }, [
+                  return _c("div", { key: day, staticClass: "form-group" }, [
                     _c(
                       "label",
                       { staticClass: "form-check-label", attrs: { for: day } },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.opening_times[day]["day"],
-                              expression: "opening_times[day]['day']"
-                            }
-                          ],
-                          staticClass: "form-check-input",
-                          attrs: { type: "checkbox", id: day },
-                          domProps: {
-                            value: day,
-                            checked: Array.isArray(
-                              _vm.opening_times[day]["day"]
-                            )
-                              ? _vm._i(_vm.opening_times[day]["day"], day) > -1
-                              : _vm.opening_times[day]["day"]
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.opening_times[day]["day"],
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = day,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.opening_times[day],
-                                      "day",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.opening_times[day],
-                                      "day",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.opening_times[day], "day", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(_vm._s(day))
-                      ]
+                      [_vm._v(_vm._s(day))]
                     ),
                     _vm._v(" "),
-                    _c("label", [_vm._v("Open Time")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.opening_times[day]["open_time"],
-                          expression: "opening_times[day]['open_time']"
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.opening_times[day]["open_time"] },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("div", { staticClass: "form-roq" }, [
+                      _c("label", [_vm._v("Open Time")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.opening_times[day]["open_time"],
+                            expression: "opening_times[day]['open_time']"
                           }
-                          _vm.$set(
-                            _vm.opening_times[day],
-                            "open_time",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("label", [_vm._v("Close Time")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.opening_times[day]["close_time"],
-                          expression: "opening_times[day]['close_time']"
-                        }
-                      ],
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.opening_times[day]["close_time"] },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        ],
+                        attrs: { type: "text" },
+                        domProps: {
+                          value: _vm.opening_times[day]["open_time"]
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.opening_times[day],
+                              "open_time",
+                              $event.target.value
+                            )
                           }
-                          _vm.$set(
-                            _vm.opening_times[day],
-                            "close_time",
-                            $event.target.value
-                          )
                         }
-                      }
-                    })
+                      }),
+                      _vm._v(" "),
+                      _c("label", [_vm._v("Close Time")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.opening_times[day]["close_time"],
+                            expression: "opening_times[day]['close_time']"
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: {
+                          value: _vm.opening_times[day]["close_time"]
+                        },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.opening_times[day],
+                              "close_time",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
                   ])
                 })
               ],
@@ -51166,9 +51123,25 @@ var render = function() {
               _c("label", [_vm._v("Logo or Image")]),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.logo,
+                    expression: "logo"
+                  }
+                ],
                 staticClass: "form-control",
-                attrs: { type: "file" },
-                on: { change: _vm.onImageChange }
+                attrs: { type: "text" },
+                domProps: { value: _vm.logo },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.logo = $event.target.value
+                  }
+                }
               })
             ]),
             _vm._v(" "),
@@ -51197,284 +51170,83 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Services")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "Home delivery" }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", [_vm._v("Services")]),
+                _vm._v(" "),
+                _vm._l(_vm.services, function(service) {
+                  return _c(
+                    "div",
+                    { key: service, staticClass: "form-check" },
+                    [
+                      _c(
+                        "label",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.services,
-                          expression: "services"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "checkbox",
-                        id: "mon",
-                        value: "Home delivery"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.services)
-                          ? _vm._i(_vm.services, "Home delivery") > -1
-                          : _vm.services
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.services,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = "Home delivery",
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.services = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                          staticClass: "form-check-label",
+                          attrs: { for: service }
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.location_services[service],
+                                expression: "location_services[service]"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.location_services[service]
+                              )
+                                ? _vm._i(_vm.location_services[service], null) >
+                                  -1
+                                : _vm.location_services[service]
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.location_services[service],
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.location_services,
+                                        service,
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.location_services,
+                                        service,
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.location_services, service, $$c)
+                                }
+                              }
                             }
-                          } else {
-                            _vm.services = $$c
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v("Home delivery")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "Click and Collect" }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.services,
-                          expression: "services"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "checkbox",
-                        id: "mon",
-                        value: "Click and Collect"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.services)
-                          ? _vm._i(_vm.services, "Click and Collect") > -1
-                          : _vm.services
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.services,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = "Click and Collect",
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.services = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.services = $$c
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v("Click and Collect")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "Take away" }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.services,
-                          expression: "services"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "checkbox",
-                        id: "mon",
-                        value: "Take away"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.services)
-                          ? _vm._i(_vm.services, "Take away") > -1
-                          : _vm.services
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.services,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = "Take away",
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.services = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.services = $$c
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v("Take away")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "Contact free" }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.services,
-                          expression: "services"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "checkbox",
-                        id: "mon",
-                        value: "Contact free"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.services)
-                          ? _vm._i(_vm.services, "Contact free") > -1
-                          : _vm.services
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.services,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = "Contact free",
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.services = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.services = $$c
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v("Contact free")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "Telephone Call" }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.services,
-                          expression: "services"
-                        }
-                      ],
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "checkbox",
-                        id: "mon",
-                        value: "Telephone Call"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.services)
-                          ? _vm._i(_vm.services, "Telephone Call") > -1
-                          : _vm.services
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.services,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = "Telephone Call",
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.services = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.services = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.services = $$c
-                          }
-                        }
-                      }
-                    }),
-                    _vm._v("Telephone Call")
-                  ]
-                )
-              ])
-            ]),
+                          }),
+                          _vm._v(_vm._s(service))
+                        ]
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            ),
             _vm._v(" "),
             _c("button", { staticClass: "btn btn-success" }, [_vm._v("Submit")])
           ]
@@ -51929,7 +51701,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.center = m.position
+                      return _vm.centreMap(m.location)
                     }
                   }
                 })
@@ -51971,7 +51743,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("h5", [_vm._v("Contact Details")]),
                             _vm._v(" "),
-                            _c("p", [
+                            _c("p", { staticClass: "phone" }, [
                               _vm._v(
                                 "Phone Number: " +
                                   _vm._s(_vm.selectedLocation.phone)
@@ -51997,20 +51769,60 @@ var render = function() {
                             _c("h5", [_vm._v("Opening hours")]),
                             _vm._v(" "),
                             _c(
-                              "ul",
-                              _vm._l(
-                                _vm.selectedLocation.opening_times,
-                                function(day) {
-                                  return _c("li", { key: day.id }, [
-                                    _vm._v(_vm._s(day))
+                              "table",
+                              [
+                                _c("tr", [
+                                  _c("th"),
+                                  _vm._v(" "),
+                                  _c("th", [
+                                    _vm._v(
+                                      "\n                                        Open\n                                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("th", [
+                                    _vm._v(
+                                      "\n                                        Close\n                                    "
+                                    )
                                   ])
-                                }
-                              ),
-                              0
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(
+                                  _vm.selectedLocation.opening_times,
+                                  function(day) {
+                                    return _c("tr", { key: day.id }, [
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(day.day) +
+                                            "\n                                    "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(day.open_time || "Closed") +
+                                            "\n                                    "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(day.close_time || "Closed") +
+                                            "\n                                    "
+                                        )
+                                      ])
+                                    ])
+                                  }
+                                )
+                              ],
+                              2
                             ),
                             _vm._v(" "),
                             _vm.selectedLocation.services.length
-                              ? _c("div", [
+                              ? _c("div", { staticClass: "services" }, [
                                   _c("h5", [_vm._v("Services Offered")]),
                                   _vm._v(" "),
                                   _c(

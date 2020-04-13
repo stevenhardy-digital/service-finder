@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Hours;
 use App\Service;
 use App\Category;
 use App\Location;
+use App\OpeningTimes;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -35,14 +35,11 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $location = $request->all();
-        
-        $imageName = uniqid().'.'.$location['logo']->getClientOriginalExtension();
-        $location['logo']->move(public_path('images'), $imageName);
 
         $loc = Location::create([
             'name' => $location['name'],
             'location' => $location['location'],
-            'logo' => '/images/' . $imageName,
+            'logo' => $location['logo'],
             'longitude' => $location['longitude'],
             'latitude' => $location['latitude'],
             'description' => $location['description'],
@@ -56,21 +53,21 @@ class LocationController extends Controller
 
         $services = $location['services'];
         
-        foreach($services as $service) {
+        foreach($services as $service => $value) {
             $serv = Service::where('name', $service)->first();
             $loc->services()->attach($serv->id);
         }
 
-        // $hours = $location['opening_hours'];
-        foreach($days as $day) {
+        $days = $location['opening_times'];
+
+        foreach($days as $day => $value) {
             $times = OpeningTimes::create([
                 'location_id' => $loc->id,
-                'day' => $day->day,
-                'open_time' => $day->open_time,
-                'closed_time' => $day->close_time
+                'day' => $value['day'],
+                'open_time' => $value['open_time'],
+                'close_time' => $value['close_time']
             ]);
         }
-
 
         return response()->json(['success' => 'You have added a location, thank you!']);
     }

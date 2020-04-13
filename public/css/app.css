@@ -10919,6 +10919,10 @@ a.text-dark:focus {
   margin: 10px 15px 10px 0;
 }
 
+.infoWindow .phone {
+  margin: 0;
+}
+
 .infoWindow .logo img {
   width: 50px;
   height: 50px;
@@ -10937,6 +10941,14 @@ a.text-dark:focus {
   height: 50px;
   margin: 10px auto;
   display: block;
+}
+
+.infoWindow table {
+  width: 100%;
+}
+
+.infoWindow .services {
+  margin-top: 20px;
 }
 
 .services-list {

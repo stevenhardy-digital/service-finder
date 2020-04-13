@@ -17,8 +17,8 @@ class CreateOpeningTimesTable extends Migration
             $table->id();
             $table->integer('location_id');
             $table->string('day');
-            $table->string('open_time');
-            $table->string('close_time');
+            $table->string('open_time')->nullable();
+            $table->string('close_time')->nullable();
             $table->timestamps();
         });
     }

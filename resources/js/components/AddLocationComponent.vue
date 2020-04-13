@@ -28,17 +28,19 @@
                     </div>
                     <div class="form-group">
                         <label>Opening Hours</label>
-                        <div class="form-check" v-for="day in days" :key="day">
-                            <label :for="day" class="form-check-label"><input type="checkbox" :id="day" class="form-check-input" :value="day" v-model="opening_times[day]['day']">{{day}}</label>
-                            <label>Open Time</label>
-                            <input type="text" v-model="opening_times[day]['open_time']"/>
-                            <label>Close Time</label>
-                            <input type="text" v-model="opening_times[day]['close_time']" />
+                        <div class="form-group" v-for="day in days" :key="day">
+                            <label :for="day" class="form-check-label">{{day}}</label>
+                            <div class="form-roq">
+                                <label>Open Time</label>
+                                <input type="text" v-model="opening_times[day]['open_time']"/>
+                                <label>Close Time</label>
+                                <input type="text" v-model="opening_times[day]['close_time']" />
+                            </div>
                         </div>    
                     </div>  
                     <div class="form-group">
                         <label>Logo or Image</label>
-                        <input type="file" class="form-control" v-on:change="onImageChange">
+                        <input type="text" class="form-control" v-model="logo">
                     </div>
                     <div class="form-group">
                         <label>Description</label>
@@ -46,21 +48,9 @@
                     </div>
                     <div class="form-group">
                         <label>Services</label>
-                        <div class="form-check">
-                            <label for="Home delivery" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Home delivery" v-model="services">Home delivery</label>
-                        </div>   
-                        <div class="form-check">
-                            <label for="Click and Collect" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Click and Collect" v-model="services">Click and Collect</label>
-                        </div>  
-                        <div class="form-check">
-                            <label for="Take away" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Take away" v-model="services">Take away</label>
+                        <div class="form-check" v-for="service in services" :key="service">
+                            <label :for="service" class="form-check-label"><input type="checkbox" class="form-check-input"  v-model="location_services[service]">{{service}}</label>
                         </div>
-                        <div class="form-check">
-                            <label for="Contact free" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Contact free" v-model="services">Contact free</label>
-                        </div>  
-                        <div class="form-check">
-                            <label for="Telephone Call" class="form-check-label"><input type="checkbox" id="mon" class="form-check-input" value="Telephone Call" v-model="services">Telephone Call</label>
-                        </div>    
                     </div>
                     <button class="btn btn-success">Submit</button>
                 </form>
@@ -82,39 +72,39 @@
                 location: '',
                 opening_times: {
                     Monday: {
-                        day: null,
+                        day: 'Monday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Tuesday: {
-                        day: null,
+                        day: 'Tuesday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Wednesday: {
-                        day: null,
+                        day: 'Wednesday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Thursday: {
-                        day: null,
+                        day: 'Thursday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Friday: {
-                        day: null,
+                        day: 'Friday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Saturday: {
-                        day: null,
+                        day: 'Saturday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                     Sunday: {
-                        day: null,
+                        day: 'Sunday',
                         open_time: null,
-                        closing_time: null
+                        close_time: null
                     },
                 } ,
                 category: '',
@@ -128,7 +118,8 @@
                 description: '',
                 phone: '',
                 email: '',
-                services: [],
+                location_services: {},
+                services: ['Home delivery', 'Click and Collect', 'Take away', 'Contact free', 'Telephone Call'], 
                 days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
             }
         },
@@ -142,48 +133,37 @@
             .get('/category/all')
             .then(response => (this.categories = response.data))
         },
+        computed: {
+            
+            formData() {
+                return {
+                    opening_times: this.opening_times,
+                    name: this.name,
+                    location: this.location,
+                    category: this.category,
+                    logo: this.logo,
+                    latitude: this.latLong.latitude,
+                    longitude: this.latLong.longitude,
+                    description: this.description,
+                    services: this.location_services,
+                    phone: this.phone,
+                    email: this.email
+                }    
+            }
+            
+        },
         methods: {
-            onImageChange(e){
-                this.logo = e.target.files[0];
-            },
             addLocation(e) {
                 e.preventDefault();
-                let currentObj = this;
+
+                let current = this;
  
-                const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                }
-
-                let formData = new FormData();
-
-                formData.append('name', this.name);
-                formData.append('location', this.location);
-                
-                // const hours = this.openingHours;
-                // hours.forEach((day) => {
-                //     formData.append('opening_hours[]', day)
-                // });
-                
-                formData.append('category', this.category);
-                formData.append('logo', this.logo);
-                formData.append('latitude', this.latLong.latitude);
-                formData.append('longitude', this.latLong.longitude);
-                formData.append('description', this.description);
-                const services = this.services;
-
-                services.forEach((item) => {
-                    formData.append('services[]', item);
-                });
-
-                formData.append('phone', this.phone);
-                formData.append('email', this.email);
- 
-                axios.post('/add-location', formData, config)
+                axios.post('/add-location', this.formData)
                 .then(function (response) {
-                    currentObj.success = response.data.success;
+                    current.success = response.data.success;
                 })
                 .catch(function (error) {
-                    currentObj.output = error;
+                    current.output = error;
                 });
             },
             getLongLat() {

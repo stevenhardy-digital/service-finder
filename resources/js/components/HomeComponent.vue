@@ -128,7 +128,7 @@
                         :position="m.position"
                         :clickable="true"
                         :draggable="true"
-                        @click="center=m.position"
+                        @click="centreMap(m.location)"
                     />
                     <gmap-info-window
                         v-if="selectedLocation !== null"
@@ -141,13 +141,33 @@
                                 <h2 id="infoWindow-location">{{ selectedLocation.name }}</h2>
                                 <p>{{selectedLocation.description}}</p>
                                 <h5>Contact Details</h5>
-                                <p>Phone Number: {{selectedLocation.phone}}</p>
+                                <p class="phone">Phone Number: {{selectedLocation.phone}}</p>
                                 <p v-if="selectedLocation.email">Email: <a :href="'mailto:' + selectedLocation.email">{{selectedLocation.email}}</a></p>
                                 <h5>Opening hours</h5>
-                                <ul>
-                                    <li v-for="day in selectedLocation.opening_times" :key="day.id">{{day}}</li>
-                                </ul>
-                                <div v-if="selectedLocation.services.length">
+                                <table>
+                                    <tr>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            Open
+                                        </th>
+                                        <th>
+                                            Close
+                                        </th>
+                                    </tr>
+                                    <tr v-for="day in selectedLocation.opening_times" :key="day.id">
+                                        <td>
+                                            {{day.day}}
+                                        </td>
+                                        <td>
+                                            {{day.open_time || "Closed"}}
+                                        </td>
+                                        <td>
+                                            {{day.close_time || "Closed"}}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div v-if="selectedLocation.services.length" class="services">
                                     <h5>Services Offered</h5>
                                     <div class="icon-row">
                                         <div class="icon" v-for="service in selectedLocation.services" :key="service.id">
@@ -214,7 +234,8 @@
                         position: {
                             lat: Number(item.latitude),
                             lng: Number(item.longitude)
-                        }
+                        },
+                        location: item
                     };
                 });
 
