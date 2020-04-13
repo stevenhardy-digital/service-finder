@@ -3,3 +3,18 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+.navbar {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    .nav-link {
+        font-size: 18px;
+    }
+
+    .navbar-brand {
+        img {
+            height: 50px;
+        }
+    }
+}

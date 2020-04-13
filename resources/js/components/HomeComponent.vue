@@ -6,7 +6,7 @@
                     <div class="key w-100">
                         <h2>Key</h2>
                         <div class="hidden" v-if="showKey">
-                            <h5>Categories</h5>
+                            <h5 class="mt-3">Categories</h5>
                             <div class="row align-items-center">
                                 <div class="col-sm-1">
                                     <font-awesome-icon :icon="['fas', 'shopping-cart']" style="color: #28a228"/>
