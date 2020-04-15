@@ -34,5 +34,13 @@ Route::group(['prefix' => 'locations'], function () {
 });
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/admin/', 'AdminController@index');
+    Route::get('/dashboard/', 'DashboardController@index');
 });
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is.admin']],function () {
+    Route::get('/', 'AdminController@index');
+    Route::get('/locations', 'AdminController@locations');
+    Route::get('/categories', 'AdminController@categories');
+    Route::get('/services', 'AdminController@services');
+});
+

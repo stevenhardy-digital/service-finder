@@ -25,12 +25,10 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading"><img src="{{asset('/images/help-your-community-logo.jpg')}}"/></div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a href="/admin" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="/admin/locations" class="list-group-item list-group-item-action bg-light">Locations</a>
+        <a href="/admin/categories" class="list-group-item list-group-item-action bg-light">Categories</a>
+        <a href="/admin/services" class="list-group-item list-group-item-action bg-light">Services</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->

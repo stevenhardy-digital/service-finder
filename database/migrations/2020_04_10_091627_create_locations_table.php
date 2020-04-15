@@ -20,6 +20,7 @@ class CreateLocationsTable extends Migration
             $table->string('longitude');
             $table->string('latitude');
             $table->string('logo')->nullable();
+            $table->tinyinteger('is_verified')->default(0);
             $table->timestamps();
         });
     }
