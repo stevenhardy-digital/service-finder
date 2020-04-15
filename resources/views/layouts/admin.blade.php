@@ -10,8 +10,8 @@
 
   <title>Admin | Help you community</title>
 
-  <link href="css/app.css" rel="stylesheet">
-  <link href="css/admin.css" rel="stylesheet">
+  <link href="{{ asset('css/app.css')}}" rel="stylesheet">
+  <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
   <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -25,10 +25,14 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading"><img src="{{asset('/images/help-your-community-logo.jpg')}}"/></div>
       <div class="list-group list-group-flush">
-        <a href="/admin" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="/admin/locations" class="list-group-item list-group-item-action bg-light">Locations</a>
-        <a href="/admin/categories" class="list-group-item list-group-item-action bg-light">Categories</a>
-        <a href="/admin/services" class="list-group-item list-group-item-action bg-light">Services</a>
+        @if(Auth::user()->admin)
+          <a href="/admin" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+          <a href="/admin/locations" class="list-group-item list-group-item-action bg-light">Locations</a>
+          <a href="/admin/categories" class="list-group-item list-group-item-action bg-light">Categories</a>
+          <a href="/admin/services" class="list-group-item list-group-item-action bg-light">Services</a>
+        @else
+          <a href="/dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        @endif
       </div>
     </div>
     <!-- /#sidebar-wrapper -->

@@ -15,4 +15,19 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
+
+    public function locations()
+    {
+        return view('admin.locations');
+    }
+
+    public function services()
+    {
+        return view('admin.services');
+    }
+
+    public function categories()
+    {
+        return view('admin.categories');
+    }
 }
